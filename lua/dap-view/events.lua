@@ -48,6 +48,10 @@ dap.listeners.after.launch[SUBSCRIPTION_ID] = function()
 end
 
 dap.listeners.after.initialize[SUBSCRIPTION_ID] = function(session, _)
+    local s = session.capabilities.exceptionBreakpointFilters
+    if not s then
+        return
+    end
     state.exceptions_options = vim.iter(session.capabilities.exceptionBreakpointFilters)
         :map(function(filter)
             return { enabled = filter.default, exception_filter = filter }
