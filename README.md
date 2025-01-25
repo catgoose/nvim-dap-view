@@ -108,6 +108,9 @@ return {
     },
     windows = {
         height = 12,
+        terminal = {
+            position = "left" -- 'left'|'right': Terminal position in layout
+        }
     },
 }
 ```

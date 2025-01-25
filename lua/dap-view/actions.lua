@@ -59,7 +59,10 @@ M.open = function()
     local config = setup.config
 
     local winnr = api.nvim_open_win(bufnr, false, {
-        split = "right",
+        -- split.left puts terminal on right side
+        split = config.windows.terminal.position == "left" and "right"
+            or config.windows.terminal.position == "right" and "left"
+            or nil,
         win = term_winnr,
         height = config.windows.height,
     })
