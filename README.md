@@ -193,31 +193,15 @@ They are linked to (somewhat) reasonable defaults, but they may look odd with yo
 These filetypes can be used to override buffer and window options set by `nvim-dap-view`
 
 <details>
-    <summary>Example autocommands</summary>
-
-Some adapters like `delve` do not support the integrated terminal so you could close the terminal when using that adapter:
-
-```lua
-vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "dap-view-term" },
-  callback = function(evt)
-    vim.schedule(function()
-      local session = require("dap").session()
-      if session and session.config and session.config.dlvToolPath then
-        vim.api.nvim_buf_delete(evt.buf, { force = true })
-      end
-    end)
-  end,
-})
-```
+    <summary>Example autocommand</summary>
 
 Map q to quit in `nvim-dap-view` filetypes:
 
 ```lua
 vim.api.nvim_create_autocmd({ "FileType" }, {
-  pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `dap`
+  pattern = { "dap-view", "dap-view-term", "dap-repl" }, -- dap-repl is set by `nvim-dap`
   callback = function(evt)
-    vim.api.nvim_buf_set_keymap(evt.buf, "n", "q", "<cmd>q<CR>", { noremap = true, silent = true })
+    vim.keymap.set("n", "q", "<C-w>q", { silent = true, buffer = evt.buf })
   end,
 })
 ```
