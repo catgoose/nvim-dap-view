@@ -59,9 +59,7 @@ M.open = function()
     local config = setup.config
 
     local winnr = api.nvim_open_win(bufnr, false, {
-        split = config.windows.terminal.position == "left" and "right"
-            or config.windows.terminal.position == "right" and "left"
-            or "right",
+        split = config.windows.terminal.position == "left" and "right" or "left",
         win = term_winnr,
         height = config.windows.height,
     })
